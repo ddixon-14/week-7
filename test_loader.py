@@ -6,21 +6,21 @@ class TestLoader(unittest.TestCase):
     def test_valid_locations(self):
         #creates a fake location object
         fake_location = Mock()
-        fake_location.latitude = 40.4
-        fake_location.longitude = 79.9
-        fake_location.geo_type = "city"
+        fake_location.latitude = 40.7618552
+        fake_location.longitude = -73.9782438
+        fake_location.geo_type = "Museum"
 
         #fake geolocator
         fake_geo = Mock()
         fake_geo.geocode.return_value = fake_location
 
         #function call 
-        result = fetch_location_data(fake_geo, "Indiana")
+        result = fetch_location_data(fake_geo, "MoMa")
 
-        self.assertEqual(result["location"], "Indiana")
-        self.assertEqual(result["latitude"], 40.4)
-        self.assertEqual(result["longitude"], 79.9)
-        self.assertEqual(result["type"], "city")
+        self.assertEqual(result["location"], "MoMa")
+        self.assertEqual(result["latitude"], 40.7618552)
+        self.assertEqual(result["longitude"], -73.9782438)
+        self.assertEqual(result["type"], "Museum")
 
     def test_invalid_location(self):
         geolocator = get_geolocator()
