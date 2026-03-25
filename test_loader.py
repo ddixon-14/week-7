@@ -15,6 +15,8 @@ class TestLoader(unittest.TestCase):
         fake_location2.longitude = -88.015316
         fake_location2.geo_type = "Park"
 
+       # fake_location3 = Mock()
+
         #fake geolocator
         fake_geo = Mock()
         fake_geo.geocode.side_effect = [fake_location, fake_location2]
@@ -22,6 +24,7 @@ class TestLoader(unittest.TestCase):
         #function call 
         result = fetch_location_data(fake_geo, "MoMa")
         result2 = fetch_location_data(fake_geo, "USS Alabama Battleship Park")
+        #result3 = fetch_location_data(fake_geo, "asdfqwer1234")
 
         self.assertEqual(result["location"], "MoMa")
         self.assertEqual(result["latitude"], 40.7618552)
@@ -33,6 +36,8 @@ class TestLoader(unittest.TestCase):
         self.assertEqual(result2["longitude"], -88.015316)
         self.assertEqual(result2["type"], "Park")
 
+
+
         
 
     def test_invalid_location(self):
@@ -41,6 +46,8 @@ class TestLoader(unittest.TestCase):
 
         self.assertIsNone(result, 
                           "A nonexistent location should have an empty result.")
+        #Exercise 3: check for NaN not None 
+        self.assertTrue(pd.isna(result))
 
 if __name__ == "__main__":
     unittest.main()
